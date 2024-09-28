@@ -1,3 +1,30 @@
-header a{
-    text-decoration: none;
+body {
+    margin: 0;
+}
+
+header {
+    background-color: #1a618a;
+    margin: 0; /* Usuń marginesy */
+    padding: 0; /* Usuń padding */
+}
+
+.container {
+    display: flex;
+    justify-content: center; /* Wyśrodkowanie w poziomie */
+    align-items: center; /* Wyśrodkowanie w pionie */
+    height: 3em; /* Wysokość navbaru */
+}
+
+.link {
+    font-family: "Helvetica Neue";
+    font-weight: 100;
+    font-size: 1em;
+    color: white;
+    margin: 0 2em; /* Margin po bokach dla przestrzeni między linkami */
+    text-decoration: none; /* Brak podkreślenia */
+}
+
+/* Opcjonalnie: Dostosuj h1 w linkach */
+.link h1 {
+    margin: 0; /* Usuń marginesy z h1 */
 }

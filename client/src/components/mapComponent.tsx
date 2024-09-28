@@ -32,51 +32,51 @@ const MapComponent: React.FC = () => {
     if (mapRef.current && !map.current) {
       const vectorSource = new VectorSource();
 
-    coordinates.forEach((coordinate) => {
+      coordinates.forEach((coordinate) => {
         const [lon, lat, typeNo, name, address, schoolID] = coordinate;
         const marker = new Feature({
-            geometry: new Point(fromLonLat([lon, lat])),
-            typeNo,
-            name,
-            address,
-            schoolID,
+          geometry: new Point(fromLonLat([lon, lat])),
+          typeNo,
+          name,
+          address,
+          schoolID,
         });
 
         marker.setStyle(
-            new Style({
-              image: new Icon({
-                src: 'https://openlayers.org/en/latest/examples/data/icon.png',
-                scale: 1,
-                anchor: [0.5, 1],
-              }),
-            })
+          new Style({
+            image: new Icon({
+              src: 'https://openlayers.org/en/latest/examples/data/icon.png',
+              scale: 1,
+              anchor: [0.5, 1],
+            }),
+          })
         );
 
         vectorSource.addFeature(marker);
-    })
+      });
 
-    const vectorLayer = new VectorLayer({
+      const vectorLayer = new VectorLayer({
         source: vectorSource,
-    });
+      });
 
-    const overlay = new Overlay({
-      element: popupRef.current || undefined,
-      positioning: 'bottom-center',
-      stopEvent: false,
-      offset: [0, -50],
-    });
+      const overlay = new Overlay({
+        element: popupRef.current || undefined,
+        positioning: 'bottom-center',
+        stopEvent: false,
+        offset: [0, 150],
+      });
 
-    map.current = new Map({
+      map.current = new Map({
         target: mapRef.current,
         layers: [
-        new TileLayer({
+          new TileLayer({
             source: new OSM(),
-        }),
-        vectorLayer,
+          }),
+          vectorLayer,
         ],
         view: new View({
-            center: fromLonLat([19.9363912, 50.0573861]), // Longitude and Latitude for the map center
-            zoom: 13, // Zoom level
+          center: fromLonLat([19.9363912, 50.0573861]), // Longitude and Latitude for the map center
+          zoom: 13, // Zoom level
         }),
         overlays: [overlay],
       });
@@ -99,26 +99,24 @@ const MapComponent: React.FC = () => {
         }
       });
     }
-    }, [coordinates]);
+  }, [coordinates]);
 
-    return (
-      <div style={{ display: 'flex', height: '100vh' }}>
-        <div ref={mapRef} style={{ flex: '3', height: '100%' }}></div>
-        <div style={{ flex: '1', padding: '10px', borderLeft: '1px solid black', backgroundColor: 'white', justifyContent: 'center', display: 'flex'}}>
-          {selectedSchool ? (
+  return (
+    <div style={{ display: 'flex', height: '100vh' }}>
+      <div ref={mapRef} style={{ flex: '3', height: '90vh' }}></div>
+      <div ref={popupRef} style={{ position: 'absolute', backgroundColor: 'white', padding: '5px', border: '1px solid black', borderRadius: '4px', bottom: '50px', transform: 'translate(-50%, -100%)', minWidth: '10em' }}>
+        {selectedSchool && (
+          <div>
+            <div><strong>{selectedSchool.get('name')}</strong></div>
+            <div>{selectedSchool.get('address')}</div>
             <div>
-              <div><strong>{selectedSchool.get('name')}</strong></div>
-              <div>{selectedSchool.get('address')}</div>
-              <div>
-                <button onClick={() => window.location.href = selectedSchool.get('schoolID')}>Go to page</button>
-              </div>
+              <button onClick={() => window.location.href = selectedSchool.get('schoolID')}>Go to page</button>
             </div>
-          ) : (
-            <div>Select a marker to see details</div>
-          )}
+          </div>
+        )}
       </div>
     </div>
-    );
+  );
 };
 
 export default MapComponent;

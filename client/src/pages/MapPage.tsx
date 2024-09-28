@@ -1,8 +1,9 @@
 import MapComponent from "../components/mapComponent";
+import "../styles/mapPage.css"
 
 const MapPage = () => {
     return (
-        <div className="">
+        <div className="mapMain">
             <MapComponent />
         </div>
     )
