@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const schema = new Schema({
+const schema = new mongoose.Schema({
     rspo: {
         type: Number,
         unique: true,
@@ -15,7 +15,7 @@ const schema = new Schema({
         required: true
     },
     shortName: String,
-    professions: {
+    majors: {
         type: [String],
         default: []
     },
@@ -35,7 +35,14 @@ const schema = new Schema({
     email: String,
     principalName: String,
     principalSurname: String,
-    internat: Boolean
+    internat: Boolean,
+    address: {
+        city: String,
+        street: String,
+        building: String,
+        apartament: String,
+        postal: String
+    }
 });
 
 schema.index({ location: "2dsphere" });

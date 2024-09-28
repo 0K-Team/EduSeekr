@@ -7,7 +7,6 @@ const LandingPage = () => {
         <>
             <div className="content">
                 <SearchComponent></SearchComponent>
-                <p>Jak używać wyszukiwarko-porównywarki <b>EduSeekr</b></p>
             </div>
         </>
     )
