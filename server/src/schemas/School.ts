@@ -38,4 +38,6 @@ const schema = new Schema({
     internat: Boolean
 });
 
+schema.index({ location: "2dsphere" });
+
 export default model("rspo", schema);
