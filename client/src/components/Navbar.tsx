@@ -6,14 +6,14 @@ const Navbar = () => {
         <>
             <header>
                 <div className="container">
-                    <Link to="/" className="link"> 
-                        <h1>Strona główna</h1>
-                    </Link>
                     <Link to="/map" className="link"> 
                         <h1>Mapa</h1>
                     </Link>
                     <Link to="/FAQ" className="link"> 
                         <h1>Wszystkie szkoły</h1>
+                    </Link>
+                    <Link to="/" className="link eduseekr"> 
+                        <h1>EduSeekr</h1>
                     </Link>
                     <Link to="/compare" className="link"> 
                         <h1>Porównywarka szkół</h1>

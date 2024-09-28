@@ -1,9 +1,13 @@
+import SearchComponent from "../components/searchComponent";
+import '../styles/Landing.css';
+
 const LandingPage = () => {
 
     return(
         <>
-            <div>
-                <p></p>
+            <div className="content">
+                <SearchComponent></SearchComponent>
+                <p>Jak używać wyszukiwarko-porównywarki <b>EduSeekr</b></p>
             </div>
         </>
     )

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 body {
     margin: 0;
 }
@@ -16,15 +18,24 @@ header {
 }
 
 .link {
-    font-family: "Helvetica Neue";
-    font-weight: 100;
-    font-size: 1em;
+    
     color: white;
     margin: 0 2em; /* Margin po bokach dla przestrzeni między linkami */
     text-decoration: none; /* Brak podkreślenia */
 }
 
-/* Opcjonalnie: Dostosuj h1 w linkach */
+
 .link h1 {
-    margin: 0; /* Usuń marginesy z h1 */
+    margin: 0;
+    font-family: "Helvetica Neue", "Helvetica";
+    font-weight: 300;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.eduseekr h1 {
+    font-family: "Impact", "Anton";
+    font-size: 2rem;
+    margin-inline: 2rem;
+
 }
