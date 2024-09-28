@@ -8,7 +8,7 @@ router.get("/proximity", async (req, res) => {
         res.send(400);
         return;
     }
-    const data = await School.findOne({
+    const data = await School.find({
         location: {
             $near: {
                 $geometry: {
@@ -25,6 +25,19 @@ router.get("/proximity", async (req, res) => {
         return;
     }
     res.send(data);
+})
+
+router.get("/minimal", async (req, res) => {
+    res.send(await School.aggregate([
+        {
+            $project: {
+                "rspo": 1,
+                "type": 1,
+                "name": 1,
+                "location": 1
+            }
+        }
+    ]));
 })
 
 export default router;
