@@ -1,5 +1,7 @@
 import { Router } from "express";
 import School from "../schemas/School";
+import json from "../json/res.json";
+import contact from "../json/contact.json";
 const router = Router();
 
 router.get("/school/:rspo", async (req, res) => {
@@ -16,6 +18,10 @@ router.get("/school/:rspo", async (req, res) => {
         return;
     }
     res.send(data);
+})
+
+router.get("/schools", async (req, res) => {
+    res.send(contact);
 })
 
 // TODO: implement cke 

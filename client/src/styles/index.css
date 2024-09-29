@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+    --main-color: black;
+    --color: rgb(255, 255, 0);
+    --secondary-color:rgba(241, 231, 206, 0.682);
+  }
 body {
     font-family: Helvetica;
+    background: var(--main-color); 
 }
+

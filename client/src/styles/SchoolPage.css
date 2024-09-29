@@ -1,0 +1,11 @@
+.info>p {
+    font-weight: 900;
+}
+
+.info>p>span {
+    font-weight: 600;
+}
+
+hr {
+    color: white;
+}

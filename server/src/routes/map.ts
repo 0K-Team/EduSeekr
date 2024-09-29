@@ -1,5 +1,6 @@
 import { Router } from "express";
 import School from "../schemas/School";
+import min from "../json/min.json"
 const router = Router();
 
 router.get("/proximity", async (req, res) => {
@@ -28,16 +29,26 @@ router.get("/proximity", async (req, res) => {
 })
 
 router.get("/minimal", async (req, res) => {
-    res.send(await School.aggregate([
-        {
-            $project: {
-                "rspo": 1,
-                "type": 1,
-                "name": 1,
-                "location": 1
-            }
-        }
-    ]));
-})
+    console.time("/minimal");
+    // try {
+    //     const data = await School.aggregate([
+    //         {
+    //             $project: {
+    //                 "rspo": 1,
+    //                 "type": 1,
+    //                 "name": 1,
+    //                 "location": 1
+    //             }
+    //         }
+    //     ]).exec();
+    //     res.send(data);
+    // } catch (error) {
+    //     res.status(500).send({ error: "An error occurred while fetching data" });
+    // } finally {
+    //     console.timeEnd("/minimal");
+    // }
+    res.send(min);
+    console.timeEnd("/minimal");
+});
 
 export default router;

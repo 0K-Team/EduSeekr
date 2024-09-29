@@ -1,26 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
+:root{
+  --main-color: black;
+  --color: rgb(232, 232, 117);
+  --secondary-bg-color:rgba(241, 231, 206, 0.682);
+  --secondary-color:#1a618a;
+}
 body {
     margin: 0;
 }
 
 header {
-    background-color: #1a618a;
-    margin: 0; /* Usuń marginesy */
-    padding: 0; /* Usuń padding */
-}
+    background-color: var(--main-color);
+    margin-top: 0; /* Usuń marginesy */
 
+    padding: 0; /* Usuń padding */
+} 
+header h1{
+  align-content: left;
+}
 .container {
     display: flex;
-    justify-content: center; /* Wyśrodkowanie w poziomie */
+    justify-content: space-between; /* Wyśrodkowanie w poziomie */
     align-items: center; /* Wyśrodkowanie w pionie */
     height: 3em; /* Wysokość navbaru */
 }
 
 .link {
     
-    color: white;
-    margin: 0 2em; /* Margin po bokach dla przestrzeni między linkami */
+    color: var(--color);
+    margin: 0 1em; /* Margin po bokach dla przestrzeni między linkami */
     text-decoration: none; /* Brak podkreślenia */
 }
 
@@ -36,6 +45,55 @@ header {
 .eduseekr h1 {
     font-family: "Impact", "Anton";
     font-size: 2rem;
-    margin-inline: 2rem;
+    margin-inline: 3rem;
+}
+
+.faMap{
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
 
 }
+
+/*animacja*/
+.anim {
+    display: inline-block;
+    position: relative;
+    margin: inherit;
+    
+    font-family: sans-serif;
+    cursor: pointer;
+  }
+  
+  .animBtn {
+    width: 4em;
+    margin-right: 0.7em;
+  }
+  
+  .animText {
+    display: inline-block;
+    left:1em;
+    top:  -2px;
+    width: 0;
+    height: 1em;
+    background: var(--main-color);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .animBtn:hover {
+    color: white;
+  }
+  
+  .anim:hover .animText {
+    width: 6em;
+    animation: type .3s steps(10,end),
+               blink 1.1s linear 1s infinite;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes type {
+    from { width: 0; } 
+  } 
+  
+

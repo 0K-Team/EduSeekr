@@ -1,10 +1,31 @@
 import { Schema, model } from "mongoose";
 
-const schema = new mongoose.Schema({
+const addressSchema = new Schema({
+    city: String,
+    street: String,
+    building: String,
+    apartament: String,
+    postal: String
+}, { _id: false });
+
+const locationSchema = new Schema({
+    type: {
+        type: String,
+        enum: ["Point"],
+        required: true
+    },
+    coordinates: {
+        type: [Number],
+        required: true
+    }
+}, { _id: false });
+
+const schoolSchema = new Schema({
     rspo: {
         type: Number,
         unique: true,
-        required: true
+        required: true,
+        index: true
     },
     type: {
         type: Number,
@@ -20,15 +41,8 @@ const schema = new mongoose.Schema({
         default: []
     },
     location: {
-        type: {
-            type: String,
-            enum: ["Point"],
-            required: true
-        },
-        coordinates: {
-            type: [Number],
-            required: true
-        }
+        type: locationSchema,
+        required: true
     },
     website: String,
     phone: String,
@@ -36,15 +50,9 @@ const schema = new mongoose.Schema({
     principalName: String,
     principalSurname: String,
     internat: Boolean,
-    address: {
-        city: String,
-        street: String,
-        building: String,
-        apartament: String,
-        postal: String
-    }
+    address: addressSchema
 });
 
-schema.index({ location: "2dsphere" });
+schoolSchema.index({ "location": "2dsphere" });
 
-export default model("rspo", schema);
+export default model("rspo", schoolSchema);

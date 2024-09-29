@@ -1,12 +1,12 @@
 .filters {
-    width: 33%;
+    flex: 1;
     height: 90vh;
     background: #1A618A;
     border-radius: 0 .5em .5em 0;
 }
 
 .results {
-    width: 66%;
+    flex: 2;
     margin-left: 2em;
     height: 100vh;
     border: 1px solid black;
