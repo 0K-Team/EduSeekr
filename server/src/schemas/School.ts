@@ -50,7 +50,16 @@ const schoolSchema = new Schema({
     principalName: String,
     principalSurname: String,
     internat: Boolean,
-    address: addressSchema
+    address: addressSchema,
+    polish: {
+        written: Number,
+        oral: Number
+    },
+    english: {
+        written: Number,
+        oral: Number
+    },
+    math: Number
 });
 
 schoolSchema.index({ "location": "2dsphere" });

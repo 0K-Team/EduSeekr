@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useEffect, useState } from "react";
-import { CKE, School } from "../types/school";
-import { getCKE, getSchoolData } from "../api/school";
+import { School } from "../types/school";
+import { getSchoolData } from "../api/school";
 import { useParams } from "react-router-dom";
 import VectorSource from "ol/source/Vector";
 import { Icon, Style } from "ol/style";
@@ -18,7 +18,6 @@ import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const SchoolPage = () => {
     const [school, setSchool] = useState<School | null>(null);
-    const [cke, setCKE] = useState<CKE | null>(null)
     const [loading, setLoading] = useState<boolean>(true);
     const { rspo } = useParams();
 
@@ -70,17 +69,15 @@ const SchoolPage = () => {
                     }),
                 })
             }
+            console.log(data);
             return getTypes()
         }).then(({data}) => {
             setTypes(data);
-            return getCKE(rspo ?? "");
-        }).then(({data}) => {
-            setCKE(data);
             setLoading(false);
         }).catch(() => {
             setLoading(false);
         })
-    }, [rspo])
+    }, [])
 
     return loading ? <div>
         <h1>Loading</h1>
@@ -113,7 +110,7 @@ const SchoolPage = () => {
                 </div>
             </div>
             <div style={{display: 'flex'}}>
-              <div style={{flex: 1, background: '#1a618a', height: '23.6vh', color: 'white', padding: '1em'}} className="info">
+              <div style={{flex: 1, background: '#1a618a', color: 'white', padding: '1em'}} className="info">
                 <p>Internat: {school.internat ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faTimes} />}</p>
                 <hr />
                 <p>ADRES: <span>{`${school.address.city} ${school.address.street} ${school.address.building}` + (school.address.apartment != null ? `/${school.address.apartment}` : "" + ` ${school.address.postal}`)}</span></p>
@@ -121,15 +118,17 @@ const SchoolPage = () => {
                 <p>EMAIL: <span>{school.email}</span></p>
                 <p>NR TELEFONU: <span>{school.phone}</span></p>
               </div>
-              <div style={{flex: 1, background: '#2a81aa', height: '27.5vh'}}>
+              <div style={{flex: 1, background: '#2a81aa'}}>
                 <div style={{marginLeft: '1em', marginRight: '1em', color: 'white'}}>
                   <h2>Matury:</h2>
                   <hr />
-                  <p>Matematyka: <span>{cke?.math}%</span></p>
+                  <p>Matematyka: <span>{school.math == -1 ? "Brak danych" : school.math + "%"}</span></p>
                   <hr />
-                  <p>Polski: <span>{cke?.polish.written}%</span></p>
+                  <p>Polski (pisemny): <span>{school.polish.written == -1 ? "Brak danych" : school.polish.written + "%"}</span></p>
+                  <p>Polski (ustny): <span>{school.polish.oral == -1 ? "Brak danych" : school.polish.oral + "%"}</span></p>
                   <hr />
-                  <p>Angielski: <span>{cke?.english.written}%</span></p>
+                  <p>Angielski (pisemny): <span>{school.english.written == -1 ? "Brak danych" : school.english.written + "%"}</span></p>
+                  <p>Angielski (ustny): <span>{school.english.oral == -1 ? "Brak danych" : school.english.oral + "%"}</span></p>
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { Search } from "js-search";
-import { fetchSchools } from "../api/map"
+import { fetchSchools, getNearSchools } from "../api/map"
 import { getAllSchools } from "../api/school"
 
 function removeDiacritics(string: string) {
@@ -61,8 +61,31 @@ export interface Filters {
 }
 
 export async function searchFull(filter: Filters, location?: [number, number]) {
+    let schools = [];
     if (filter.distance > 0) {
         if (!location || location.length == 0) return [];
-        
+        schools = await getNearSchools(location, 0, filter.distance);
+    } else {
+        schools = await getAllSchools();
     }
+
+    let search = new Search("rspo");
+    search.addDocuments((await fetchSchools()).data);
+
+    for (const key in filter) {
+        if (key == "distance") continue;
+        const f = filter[key];
+        if (key == "city") {
+            search.addIndex(`address.${key}`);
+            const temp = new Search("rspo");
+            temp.addDocuments(search.search(f));
+            search = temp;
+        } else {
+            search.addIndex(key);
+            const temp = new Search("rspo");
+            temp.addDocuments(search.search(f));
+            search = temp;
+        }
+    }
+    return search.search("");
 }

@@ -32,14 +32,14 @@ const SchoolDropdown = ({ schools, setter }: { schools: MinimalSchool[], setter:
                         InputProps={{ ...params.InputProps, style: { fontSize: 20, padding: '10px 14px' } }}
                     />
                 )}
-                onInputChange={(e, value) => {
+                onInputChange={(_, value) => {
                     if (value) {
                         setSchoolsList(search.search(value) as MinimalSchool[]);
                     } else {
                         setSchoolsList(schools);
                     }
                 }}
-                onChange={(e, value) => setter(value ? value.id : "")}
+                onChange={(_, value) => setter(value ? value.id : "")}
             />
         </Box>
     );

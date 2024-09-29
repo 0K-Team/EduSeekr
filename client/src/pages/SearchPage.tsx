@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEffect, useState } from 'react';
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import SearchComponent from "../components/searchComponent";
-import { searchAllData as getSchools } from '../utils/search';
+import { searchAllData as getSchools, searchFull } from '../utils/search';
 import '../styles/search.css';
 import { School } from '../types/school';
 import SchoolRecord from '../components/schoolRecord';
@@ -12,7 +12,10 @@ import { getMajors, getTypes } from '../api/enums';
 
 const SearchPage = () => {
     const [searchValue, setSearchValue] = useState("");
-    const [rangeValue, setRangeValue] = useState(0);
+    const [type, setType] = useState([]);
+    const [majors, setMajors] = useState([]);
+    const [city, setCity] = useState("");
+    const [distanceValue, setDistanceValue] = useState(0);
     const [mathValue, setMathValue] = useState(0);
     const [polValue, setPolValue] = useState(0);
     const [engValue, setEngValue] = useState(0);
@@ -24,10 +27,22 @@ const SearchPage = () => {
 
     const [page, setPage] = useState(1);
 
-    const [majors, setMajors] = useState([]);
+    const [majorsEnum, setMajorsEnum] = useState([]);
     const [types, setTypes] = useState([]);
 
     const [location, setLocation] = useState<number[]>([]);
+
+    const submitForm = () => {
+        const data = searchFull({
+            name: searchValue,
+            type,
+            majors,
+            city,
+            distance: distanceValue
+        })
+        // @ts-ignore
+        setSchools(data);
+    }
 
     const clampPage = (page: number) => {
         if (page > 0 && page < Math.ceil(schools.length / 10)) setPage(page);
@@ -48,13 +63,16 @@ const SearchPage = () => {
       setLocation([crd.longitude, crd.latitude]);
     }
   
-    function errors(err) {
+    function errors(err: GeolocationPositionError) {
       console.warn(`ERROR(${err.code}): ${err.message}`);
     }
 
     useEffect(() => {
         setSearchValue(params.get("q") ?? "");
-        setRangeValue(parseInt(params.get("distance") ?? "0", 10));
+        setDistanceValue(parseInt(params.get("distance") ?? "0", 10));
+        setType([]);
+        setMajors([]);
+        setCity(params.get("city") ?? "");
         setMathValue(parseInt(params.get("math") ?? "0", 10));
         setPolValue(parseInt(params.get("pol") ?? "0", 10));
         setEngValue(parseInt(params.get("eng") ?? "0", 10));
@@ -64,7 +82,7 @@ const SearchPage = () => {
             return getMajors()
         })
         .then(({data}) => {
-            setMajors(data);
+            setMajorsEnum(data);
             return getTypes()
         })
         .then(({data}) => {
@@ -87,7 +105,7 @@ const SearchPage = () => {
         } else {
         console.log("Geolocation is not supported by this browser.");
         }
-    }, [])
+    }, []);
 
     async function search(query: string) {
         const data = getSchools(query, allSchools);
@@ -127,7 +145,7 @@ const SearchPage = () => {
                             multiple
                             limitTags={2}
                             id="multiple-limit-tags"
-                            options={majors}
+                            options={majorsEnum}
                             getOptionLabel={(option) => option}
                             defaultValue={majors[0]}
                             renderInput={(params) => (
@@ -138,8 +156,7 @@ const SearchPage = () => {
                     </div>
 
                     <div className="city" style={{ display: 'flex', alignItems: 'center', marginTop: '1em'}}>
-                        <h3 style={{ marginRight: '1em' }}>Miasto:</h3>
-                        <input id='city' type="text" style={{marginLeft: '2.7em', width: '19em' }} />
+                        <TextField defaultValue={city} style={{background: 'white', width: '80%', marginLeft: '10%', border: "none", borderRadius: ".5em"}} id="outlined-basic" label="Miejscowość" variant="outlined" />
                     </div>
 
                     <div className="distance" style={{ display: 'flex', alignItems: 'center', marginTop: '1em' }}>
@@ -150,15 +167,15 @@ const SearchPage = () => {
                             min="0" 
                             max="500" 
                             style={{ marginLeft: '1em', width: '16em' }} 
-                            value={rangeValue}
-                            onChange={(e) => setRangeValue(Number(e.target.value))}
-                            onSelect={(e) => {
+                            value={distanceValue}
+                            onChange={(e) => setDistanceValue(Number(e.target.value))}
+                            onSelect={() => {
                                 if (location.length == 0) {
                                     alert("To use this feature you need to have Geolocation enabled");
                                 }
                             }}
                         />
-                        <span style={{ marginLeft: '1em', color: 'white' }}>{rangeValue} km</span>
+                        <span style={{ marginLeft: '1em', color: 'white' }}>{distanceValue} km</span>
                     </div>
 
                     <h1 style={{color: 'white', marginLeft: '1em'}}>Matury (min.):</h1>
@@ -208,15 +225,18 @@ const SearchPage = () => {
                     <input 
                     type="submit" id='submit' value="Submit"
                     style={{width: '30em', height: '4em'}}
+                    onSubmit={() => {submitForm()}}
                     />
                 </div>
             </div>
 
             <div className="results">
                 {schools.slice((page - 1) * 10, page * 10 - 1).map((school) => (
-                   <SchoolRecord school={school} />
+                    <Link to={`/school/${school.rspo}`} style={{textDecoration: 'none'}}>
+                        <SchoolRecord school={school} />
+                    </Link>
                 ))}
-                {schools.length > 0 && <Pagination onChange={(e, v) => {
+                {schools.length > 0 && <Pagination onChange={(_, v) => {
                     clampPage(v)
                 }} count={Math.ceil(schools.length / 10)}/>}
             </div>

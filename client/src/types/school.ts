@@ -37,7 +37,16 @@ export interface School {
         building: string;
         apartment: string;
         postal: string;
-    }
+    };
+    polish: {
+        written: number,
+        oral: number
+    };
+    english: {
+        written: number,
+        oral: number
+    };
+    math: number;
 }
 
 export interface MinimalSchool {
@@ -48,17 +57,4 @@ export interface MinimalSchool {
         type: "Point",
         coordinates: [number, number]
     };
-}
-
-export interface CKE {
-    rspo: string;
-    polish: {
-        written: number,
-        oral: number
-    };
-    english: {
-        written: number,
-        oral: number
-    };
-    math: number;
 }

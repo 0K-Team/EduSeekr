@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, memo } from 'react';
+import { useRef, useEffect, useState, memo } from 'react';
 import 'ol/ol.css';
 import { Map, View } from 'ol';
 import TileLayer from 'ol/layer/Tile';

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import School from "../schemas/School";
+import CKE from "../schemas/CKE";
 import json from "../json/res.json";
 import contact from "../json/contact.json";
 const router = Router();
@@ -14,7 +15,7 @@ router.get("/school/:rspo", async (req, res) => {
         rspo
     })
     if (!data) {
-        res.status(400);
+        res.status(404);
         return;
     }
     res.send(data);
@@ -34,7 +35,7 @@ router.get("/cke/:rspo", async (req, res) => {
         rspo
     })
     if (!data) {
-        res.status(400);
+        res.status(404);
         return;
     }
     res.send(data);

@@ -62,9 +62,11 @@ const SchoolComparison: React.FC = () => {
         <p>Kierunki: {school1.majors?.join(', ') ?? "Brak danych"}</p>
         <p>Wyniki matur:</p>
         <ul>
-          <li>Polski: {school1.examResults?.polski || 'Brak danych'}</li>
-          <li>Angielski: {school1.examResults?.angielski || 'Brak danych'}</li>
-          <li>Matematyka: {school1.examResults?.matematyka || 'Brak danych'}</li>
+          <li>Polski pisemny: {school1.polish.written || 'Brak danych'}</li>
+          <li>Polski ustny: {school1.polish.oral || 'Brak danych'}</li>
+          <li>Angielski pisemny: {school1.english.written || 'Brak danych'}</li>
+          <li>Angielski ustny: {school1.english.oral || 'Brak danych'}</li>
+          <li>Matematyka: {school1.math || 'Brak danych'}</li>
         </ul>
         </div>
       )}
@@ -78,9 +80,11 @@ const SchoolComparison: React.FC = () => {
         <p>Kierunki: {school2.majors?.join(', ') ?? "Brak danych"}</p>
         <p>Wyniki matur:</p>
         <ul>
-          <li>Polski: {school2.examResults?.polski || 'Brak danych'}</li>
-          <li>Angielski: {school2.examResults?.angielski || 'Brak danych'}</li>
-          <li>Matematyka: {school2.examResults?.matematyka || 'Brak danych'}</li>
+          <li>Polski pisemny: {school2.polish.written || 'Brak danych'}</li>
+          <li>Polski ustny: {school2.polish.oral || 'Brak danych'}</li>
+          <li>Angielski pisemny: {school2.english.written || 'Brak danych'}</li>
+          <li>Angielski ustny: {school2.english.oral || 'Brak danych'}</li>
+          <li>Matematyka: {school2.math || 'Brak danych'}</li>
         </ul>
         </div>
       )}

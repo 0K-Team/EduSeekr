@@ -1,5 +1,6 @@
 .filters {
     flex: 1;
+    max-width: 33%;
     height: 55em;
     background: #1A618A;
     border-radius: 0.5em;
@@ -11,11 +12,6 @@
     flex: 2;
     margin-left: 2em;
     margin-right: 5em;
-}
-
-.searchBar {
-    scale: 30%;
-    margin-top: 4em;
 }
 
 .search-h1 {

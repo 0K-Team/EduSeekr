@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import '../styles/Navbar.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faMap } from "@fortawesome/free-solid-svg-icons";
+import { faMap } from "@fortawesome/free-solid-svg-icons";
 
 
 const Navbar = () => {

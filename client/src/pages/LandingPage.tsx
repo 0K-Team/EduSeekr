@@ -8,7 +8,7 @@ const LandingPage = () => {
             <div className="content">
                 <h1 className="landing-h1">Liceum? Technikum? Szkoła branżowa?</h1>
                 <p className="landing-p">Znajdź idealną szkołę średnią dla siebie.</p>
-                <img src='src/assets/img/magnifying-glass.png' alt="Magnifying Glass" className="landing-image" />
+                <img src='https://cdn.eduseekr.pl/img/magnifying-glass-transparent.png' alt="Logo" className="landing-image" />
                 <div className="landing-searchComponent">
                     <SearchComponent setDataFunction={(q) => {
                         navigate("/search?q=" + q);
