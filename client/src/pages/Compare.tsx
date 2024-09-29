@@ -18,7 +18,6 @@ const SchoolComparison: React.FC = () => {
     })
   }, [])
 
-  // Funkcje obsługujące wybór szkół
   const handleSelectSchool1 = async (rspo: string) => {
     if (!rspo) return;
     setSchool1((await getSchoolData(rspo)).data);
@@ -34,7 +33,6 @@ const SchoolComparison: React.FC = () => {
       <h2 className="porownaj" >Porównaj Szkoły</h2>
       
       <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%', marginBottom: '2em' }}>
-      {/* Komponent wyszukiwania szkoły 1 */}
       <div className="school-search" style={{ flex: 1, marginRight: '1em' }}>
         <h3 className = "h3" id = 'pierwszaSzkoła' style={{ textAlign: 'center' }}>Wybierz pierwszą szkołę</h3>
         <div>
@@ -42,7 +40,6 @@ const SchoolComparison: React.FC = () => {
         </div>
       </div>
 
-      {/* Komponent wyszukiwania szkoły 2 */}
       <div className="school-search" style={{ flex: 1, marginLeft: '1em' }}>
         <h3 className = "h3" style={{ textAlign: 'center' }}>Wybierz drugą szkołę</h3>
         <div>
@@ -51,9 +48,7 @@ const SchoolComparison: React.FC = () => {
       </div>
       </div>
 
-      {/* Wyświetlanie porównywanych szkół */}
       <div className="school-comparison-boxes" style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
-      {/* Wyświetlanie pierwszej szkoły */}
       {school1 && (
         <div className="school-box" style={{ flex: 1, marginRight: '1em', padding: '1em', border: '1px solid #ccc', borderRadius: '8px' }}>
         <h4 className = "h4" >{school1.name}</h4>
@@ -62,16 +57,15 @@ const SchoolComparison: React.FC = () => {
         <p>Kierunki: {school1.majors?.join(', ') ?? "Brak danych"}</p>
         <p>Wyniki matur:</p>
         <ul>
-          <li>Polski pisemny: {school1.polish.written || 'Brak danych'}</li>
-          <li>Polski ustny: {school1.polish.oral || 'Brak danych'}</li>
-          <li>Angielski pisemny: {school1.english.written || 'Brak danych'}</li>
-          <li>Angielski ustny: {school1.english.oral || 'Brak danych'}</li>
-          <li>Matematyka: {school1.math || 'Brak danych'}</li>
+          <li>Polski pisemny: {school1.polish.written != -1 ? school1.polish.written.toFixed(2) + "%" : 'Brak danych'}</li>
+          <li>Polski ustny: {school1.polish.oral != -1 ? school1.polish.oral.toFixed(2) + "%" : 'Brak danych'}</li>
+          <li>Angielski pisemny: {school1.english.written != -1 ? school1.english.written.toFixed(2) + "%" : 'Brak danych'}</li>
+          <li>Angielski ustny: {school1.english.oral != -1 ? school1.polish.oral.toFixed(2) + "%" : 'Brak danych'}</li>
+          <li>Matematyka: {school1.math != -1 ? school1.math.toFixed(2) + "%" : 'Brak danych'}</li>
         </ul>
         </div>
       )}
 
-      {/* Wyświetlanie drugiej szkoły */}
       {school2 && (
         <div className="school-box" style={{ flex: 1, marginLeft: '1em', padding: '1em', border: '1px solid #ccc', borderRadius: '8px' }}>
         <h4 className="h4">{school2.name}</h4>
@@ -80,11 +74,11 @@ const SchoolComparison: React.FC = () => {
         <p>Kierunki: {school2.majors?.join(', ') ?? "Brak danych"}</p>
         <p>Wyniki matur:</p>
         <ul>
-          <li>Polski pisemny: {school2.polish.written || 'Brak danych'}</li>
-          <li>Polski ustny: {school2.polish.oral || 'Brak danych'}</li>
-          <li>Angielski pisemny: {school2.english.written || 'Brak danych'}</li>
-          <li>Angielski ustny: {school2.english.oral || 'Brak danych'}</li>
-          <li>Matematyka: {school2.math || 'Brak danych'}</li>
+          <li>Polski pisemny: {school2.polish.written != -1 ? school2.polish.written.toFixed(2) + "%" : 'Brak danych'}</li>
+          <li>Polski ustny: {school2.polish.oral != -1 ? school2.polish.oral.toFixed(2) + "%" : 'Brak danych'}</li>
+          <li>Angielski pisemny: {school2.english.written != -1 ? school2.english.written.toFixed(2) + "%" : 'Brak danych'}</li>
+          <li>Angielski ustny: {school2.english.oral != -1 ? school2.polish.oral.toFixed(2) + "%" : 'Brak danych'}</li>
+          <li>Matematyka: {school2.math != -1 ? school2.math.toFixed(2) + "%" : 'Brak danych'}</li>
         </ul>
         </div>
       )}

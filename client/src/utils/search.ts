@@ -90,7 +90,6 @@ export async function searchFull(filter: Filters, location?: [number, number] | 
         if (key === "city") {
             results = search.search(f);
         } else if (key === "type") {
-            console.log(f, f.map(a => a.id));
             if (f.length === 0) continue;
             if (f[0].id == "0") continue;
             results = results.filter((school: School) => f.map(a => a.id).includes(school[key].toString()));
