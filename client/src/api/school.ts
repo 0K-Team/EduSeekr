@@ -7,3 +7,7 @@ export async function getSchoolData(rspo: string) {
 export async function getAllSchools() {
     return await axios.get("/api/schools");
 }
+
+export async function getCKE(rspo: string) {
+    return await axios.get("/api/cke/" + rspo);
+}

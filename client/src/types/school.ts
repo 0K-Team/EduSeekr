@@ -49,3 +49,16 @@ export interface MinimalSchool {
         coordinates: [number, number]
     };
 }
+
+export interface CKE {
+    rspo: string;
+    polish: {
+        written: number,
+        oral: number
+    };
+    english: {
+        written: number,
+        oral: number
+    };
+    math: number;
+}

@@ -24,9 +24,20 @@ router.get("/schools", async (req, res) => {
     res.send(contact);
 })
 
-// TODO: implement cke 
 router.get("/cke/:rspo", async (req, res) => {
-    res.send({});
+    const { rspo } = req.params;
+    if (!rspo) {
+        res.status(400);
+        return;
+    }
+    const data = await CKE.findOne({
+        rspo
+    })
+    if (!data) {
+        res.status(400);
+        return;
+    }
+    res.send(data);
 })
 
 export default router;

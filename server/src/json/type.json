@@ -1,0 +1,16 @@
+[
+    {"id": "0", "label": "Dowolna"},
+    {"id": "14", "label": "Liceum Ogólnokształcące"},
+    {"id": "16", "label": "Technikum"},
+    {"id": "93", "label": "Szkoła Branżowa I Stopnia"},
+    {"id": "94", "label": "Szkoła Branżowa II Stopnia"},
+    {"id": "15", "label": "Liceum Profilowane"},
+    {"id": "17", "label": "LO Uzupełniające"},
+    {"id": "20", "label": "Szkoła Specjalna"},
+    {"id": "24", "label": "Szkoła Muzyczna II Stopnia"},
+    {"id": "86", "label": "Ogólnokształcąca SM II Stopnia"},
+    {"id": "26", "label": "Szkoła Sztuk Pięknych"},
+    {"id": "27", "label": "Liceum Sztuk Plastycznych"},
+    {"id": "31", "label": "Szkoła Sztuki Cyrkowej"},
+    {"id": "97", "label": "Branżowe Centrum Umiejętności"}
+]

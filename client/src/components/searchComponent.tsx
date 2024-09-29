@@ -18,7 +18,7 @@ const SearchComponent = ({
     }, [])
     return (
         <div>
-            <input type="text" className="search" defaultValue={value} autoFocus={focused} placeholder="Search..." onChange={(e) => setText(e.target.value)} onKeyDown={(e) => e.key == "Enter" && setDataFunction(text)} />
+            <input type="text" className="search" defaultValue={value} autoFocus={focused} placeholder='Na przykład "Technikum mechatroniczne"...' onChange={(e) => setText(e.target.value)} onKeyDown={(e) => e.key == "Enter" && setDataFunction(text)} />
         </div>
     )
 }

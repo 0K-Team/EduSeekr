@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import '../styles/Navbar.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faMap } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faMap, faRepeat, faSchool } from "@fortawesome/free-solid-svg-icons";
 
 
 const Navbar = () => {
@@ -27,12 +27,9 @@ const Navbar = () => {
                 </Link>
 
                 <Link to="/compare" className="link"> 
-                    <h1>Porównywarka szkół</h1>
+                <span > <FontAwesomeIcon icon={faRepeat} /> </span>
+                <span>  Porównywarka</span>
                 </Link>
-                <Link to="/school-choice" className="link"> 
-                    <h1>Wybór szkoły</h1>
-                </Link>
-                
             </div>
         </header>
     );

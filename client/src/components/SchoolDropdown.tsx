@@ -1,12 +1,12 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { MinimalSchool, School } from '../types/school';
+import { MinimalSchool } from '../types/school';
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 import { Search } from "js-search"
 
 const SchoolDropdown = ({ schools, setter }: { schools: MinimalSchool[], setter: (value: string) => void }) => {
-    const [schoolsList, setSchoolsList] = useState<MinimalSchool[]>([]);
+    const [schoolsList, setSchoolsList] = useState<MinimalSchool[]>(schools);
 
     const search = new Search('rspo');
     search.addIndex("name");
@@ -14,7 +14,8 @@ const SchoolDropdown = ({ schools, setter }: { schools: MinimalSchool[], setter:
 
     useEffect(() => {
         setSchoolsList(schools);
-    }, []);
+    }, [schools]);
+
     return (
         <Box sx={{ width: '100%', maxWidth: 600, margin: '0 auto', padding: 2 }}>
             <Autocomplete
@@ -31,7 +32,13 @@ const SchoolDropdown = ({ schools, setter }: { schools: MinimalSchool[], setter:
                         InputProps={{ ...params.InputProps, style: { fontSize: 20, padding: '10px 14px' } }}
                     />
                 )}
-                onInputChange={(e, value) => setSchoolsList(search.search(value) as MinimalSchool[])}
+                onInputChange={(e, value) => {
+                    if (value) {
+                        setSchoolsList(search.search(value) as MinimalSchool[]);
+                    } else {
+                        setSchoolsList(schools);
+                    }
+                }}
                 onChange={(e, value) => setter(value ? value.id : "")}
             />
         </Box>

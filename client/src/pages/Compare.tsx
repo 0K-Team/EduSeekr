@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from 'react';
 import { MinimalSchool, School } from '../types/school'; // Import interfejsu School
 import '../styles/Compare.css';
@@ -38,7 +37,7 @@ const SchoolComparison: React.FC = () => {
       {/* Komponent wyszukiwania szkoły 1 */}
       <div className="school-search" style={{ flex: 1, marginRight: '1em' }}>
         <h3 className = "h3" id = 'pierwszaSzkoła' style={{ textAlign: 'center' }}>Wybierz pierwszą szkołę</h3>
-        <div style={{ height: '20em' }}>
+        <div>
           <SchoolDropdown setter={handleSelectSchool1} schools={allSchools} />
         </div>
       </div>
@@ -46,7 +45,7 @@ const SchoolComparison: React.FC = () => {
       {/* Komponent wyszukiwania szkoły 2 */}
       <div className="school-search" style={{ flex: 1, marginLeft: '1em' }}>
         <h3 className = "h3" style={{ textAlign: 'center' }}>Wybierz drugą szkołę</h3>
-        <div style={{ height: '20em' }}>
+        <div>
           <SchoolDropdown setter={handleSelectSchool2} schools={allSchools} />
         </div>
       </div>

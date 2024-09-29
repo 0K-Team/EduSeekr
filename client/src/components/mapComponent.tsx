@@ -79,7 +79,7 @@ const MapComponent = memo(function MapComponent() {
           });
 
           const clusterSource = new Cluster({
-            distance: 40,
+            distance: 20,
             source: vectorSource,
           });
 
@@ -164,7 +164,7 @@ const MapComponent = memo(function MapComponent() {
   }, []);
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
       <div ref={mapRef} style={{ flex: '3', height: '90vh' }} id="map"></div>
       <div
         ref={popupRef}

@@ -2,33 +2,38 @@
 
 :root{
   --main-color: black;
-  --color: rgb(232, 232, 117);
-  --secondary-bg-color:rgba(241, 231, 206, 0.682);
+  --color: rgb(255, 255, 0);
+  --secondary-bg-color: rgba(241, 231, 206, 0.682);
   --secondary-color:#1a618a;
 }
 body {
-    margin: 0;
+  margin: 0;
 }
 
 header {
-    background-color: var(--main-color);
-    margin-top: 0; /* Usuń marginesy */
+    background-color: #1a618a;
+    color: rgb(234, 224, 224);
+  
+    margin-left: 0;
 
     padding: 0; /* Usuń padding */
 } 
 header h1{
   align-content: left;
+  margin-right: 8em;
 }
 .container {
     display: flex;
     justify-content: space-between; /* Wyśrodkowanie w poziomie */
     align-items: center; /* Wyśrodkowanie w pionie */
     height: 3em; /* Wysokość navbaru */
+    margin-right: 10em;
+
 }
 
 .link {
     
-    color: var(--color);
+    color: white;
     margin: 0 1em; /* Margin po bokach dla przestrzeni między linkami */
     text-decoration: none; /* Brak podkreślenia */
 }
@@ -62,6 +67,7 @@ header h1{
     margin: inherit;
     
     font-family: sans-serif;
+    color: white;
     cursor: pointer;
   }
   
@@ -76,7 +82,7 @@ header h1{
     top:  -2px;
     width: 0;
     height: 1em;
-    background: var(--main-color);
+    background: #1a618a;
     white-space: nowrap;
     overflow: hidden;
   }

@@ -7,3 +7,34 @@
     justify-content: center;
     align-items: center;
 }
+
+.landing-searchComponent .search {
+    top: 8em;
+    left: 41%;
+    scale: 80%;
+}
+
+.landing-h1 {
+    margin-top: 3em;
+    text-align: center;
+}
+
+.landing-p {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 200;
+}
+
+.landing-h2 {
+    margin-top: 15em;
+    text-align: center;
+    font-weight: 500;
+    margin-inline: 2em;
+}
+
+.landing-p2 {
+    text-align: left;
+    margin-inline: 20%;
+    font-size: 1.3em;
+    font-weight: 200;
+}

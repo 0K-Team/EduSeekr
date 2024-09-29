@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root{
-    --main-color: black;
-    --color: rgb(255, 255, 0);
-    --secondary-color:rgba(241, 231, 206, 0.682);
+    --main-color: rgba(0, 0, 0, 0.938);
+    --color: white;
+    --secondary-color: rgba(128, 128, 128, 0.2);
   }
 body {
     font-family: Helvetica;
-    background: var(--main-color); 
+    background: var(--secondary-color); 
 }
 
