@@ -13,13 +13,9 @@ const SearchComponent = ({
     value = "",
     focused = false
 }: SearchComponentProps) => {
-    const [text, setText] = useState("");
-    useEffect(() => {
-        setText(value);
-    }, [value])
     return (
         <div>
-            <TextField id="outlined-basic" className="search" defaultValue={value} autoFocus={focused} label="Nazwa szkoły" style={{background: 'white', width: '80%', marginLeft: '10%', border: "none", borderRadius: ".5em"}} placeholder='Na przykład "Technikum mechaniczne"...' variant="outlined" onChange={(e) => setText(e.target.value)} onKeyDown={(e) => e.key == "Enter" && setDataFunction(text)} />
+            <TextField id="outlined-basic" className="search" defaultValue={value} autoFocus={focused} label="Nazwa szkoły" style={{background: 'white', width: '80%', marginLeft: '10%', border: "none", borderRadius: ".5em"}} placeholder='Na przykład "Technikum mechaniczne"...' variant="outlined" onChange={(e) => setDataFunction(e.target.value)} />
         </div>
     )
 }

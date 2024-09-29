@@ -32,16 +32,17 @@ const SearchPage = () => {
 
     const [location, setLocation] = useState<number[]>([]);
 
-    const submitForm = () => {
-        const data = searchFull({
+    const submitForm = async () => {
+        const data = await searchFull({
             name: searchValue,
             type,
             majors,
             city,
             distance: distanceValue
-        })
+        }, location as [number, number] | [])
         // @ts-ignore
         setSchools(data);
+        console.log(data);
     }
 
     const clampPage = (page: number) => {
@@ -86,7 +87,6 @@ const SearchPage = () => {
             return getTypes()
         })
         .then(({data}) => {
-            console.log(data);
             setTypes(data);
         })
         if (navigator.geolocation) {
@@ -107,18 +107,19 @@ const SearchPage = () => {
         }
     }, []);
 
-    async function search(query: string) {
-        const data = getSchools(query, allSchools);
-        // @ts-ignore
-        setSchools(data)
-    }
+    // async function search(query: string) {
+    //     const data = getSchools(query, allSchools);
+    //     console.log(data);
+    //     // @ts-ignore
+    //     setSchools(data)
+    // }
 
     return (
         <div style={{display: 'flex', marginTop: '1em'}}>
             <div className="filters">
                 <h1 className="search-h1">Wyszukaj szkołę</h1>
                 <div className="searchBar">
-                    <SearchComponent setDataFunction={search} value={searchValue} focused={params.has("q")}></SearchComponent>
+                    <SearchComponent setDataFunction={(value) => {console.log("b", value); setSearchValue(value)}} value={searchValue} focused={params.has("q")}></SearchComponent>
                 </div>
                 <div style={{height: '2.5em'}}></div>
                 <div style={{ alignItems: 'center' }}>
@@ -136,6 +137,9 @@ const SearchPage = () => {
                                 <TextField {...params} label="Typy Szkół" placeholder="" />
                             )}
                             sx={{ width: '500px' }}
+                            onChange={(_, v) => {
+                                setType(v);
+                            }}
                         />
                     </div>
 
@@ -152,6 +156,9 @@ const SearchPage = () => {
                                 <TextField {...params} label="Kierunki Kształcenia" placeholder="" />
                             )}
                             sx={{ width: '500px' }}
+                            onChange={(_, v) => {
+                                setMajors(v);
+                            }}
                         />
                     </div>
 
@@ -225,7 +232,7 @@ const SearchPage = () => {
                     <input 
                     type="submit" id='submit' value="Submit"
                     style={{width: '30em', height: '4em'}}
-                    onSubmit={() => {submitForm()}}
+                    onClick={() => {submitForm()}}
                     />
                 </div>
             </div>

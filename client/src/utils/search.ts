@@ -1,6 +1,7 @@
 import { Search } from "js-search";
 import { fetchSchools, getNearSchools } from "../api/map"
 import { getAllSchools } from "../api/school"
+import { School } from "../types/school";
 
 function removeDiacritics(string: string) {
     const mapping = {
@@ -22,11 +23,11 @@ function removeDiacritics(string: string) {
 
 const sanitizer = {
     sanitize: (text: string) => {
-        return removeDiacritics(text);
+        return removeDiacritics(text.toLowerCase());
     }
 }
 
-export function search(searchString: string, schools: MinimalSchool[]) {
+export function search(searchString: string, schools: School[]) {
     const search = new Search("rspo");
     search.sanitizer = sanitizer;
     search.addIndex("name");
@@ -37,6 +38,7 @@ export function search(searchString: string, schools: MinimalSchool[]) {
 
 export function searchAllData(searchString: string, schools: School[]) {
     const search = new Search("rspo");
+    search.sanitizer = sanitizer;
     search.addIndex("name");
     search.addIndex("shortName");
     search.addDocuments(schools);
@@ -46,46 +48,59 @@ export function searchAllData(searchString: string, schools: School[]) {
 
 export async function searchByType(type: number) {
     const search = new Search("rspo");
+    search.sanitizer = sanitizer;
     search.addIndex("type");
     search.addDocuments((await fetchSchools()).data);
 
-    return search.search(type);
+    return search.search(type.toString());
 }
 
 export interface Filters {
     name: string;
-    type: number[];
+    type: string[];
     majors: string[];
     city: string;
     distance: number;
 }
 
-export async function searchFull(filter: Filters, location?: [number, number]) {
+export async function searchFull(filter: Filters, location?: [number, number] | []) {
     let schools = [];
     if (filter.distance > 0) {
         if (!location || location.length == 0) return [];
-        schools = await getNearSchools(location, 0, filter.distance);
+        schools = (await getNearSchools(location, 0, filter.distance)).data;
     } else {
-        schools = await getAllSchools();
+        schools = (await getAllSchools()).data;
     }
 
-    let search = new Search("rspo");
-    search.addDocuments((await fetchSchools()).data);
+    const search = new Search("rspo");
+    search.sanitizer = sanitizer;
+    search.addIndex("name");
+    search.addIndex("shortName");
+    search.addIndex("type");
+    search.addIndex("majors");
+    search.addIndex("address.city");
+    search.addDocuments(schools);
+
+    let results = schools;
 
     for (const key in filter) {
-        if (key == "distance") continue;
+        if (key === "distance") continue;
         const f = filter[key];
-        if (key == "city") {
-            search.addIndex(`address.${key}`);
-            const temp = new Search("rspo");
-            temp.addDocuments(search.search(f));
-            search = temp;
+        if (f.length === 0) continue;
+        if (key === "city") {
+            results = search.search(f);
+        } else if (key === "type") {
+            console.log(f, f.map(a => a.id));
+            if (f.length === 0) continue;
+            if (f[0].id == "0") continue;
+            results = results.filter((school: School) => f.map(a => a.id).includes(school[key].toString()));
+        } else if (key === "majors") {
+            if (f.length === 0) continue;
+            results = results.filter((school: School) => f.some(a => school[key].includes(a)));
         } else {
-            search.addIndex(key);
-            const temp = new Search("rspo");
-            temp.addDocuments(search.search(f));
-            search = temp;
+            results = search.search(f.toString());
         }
     }
-    return search.search("");
+
+    return results;
 }

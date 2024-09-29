@@ -38,6 +38,7 @@ export interface School {
         apartment: string;
         postal: string;
     };
+    city: string;
     polish: {
         written: number,
         oral: number

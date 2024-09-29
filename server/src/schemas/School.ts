@@ -51,6 +51,7 @@ const schoolSchema = new Schema({
     principalSurname: String,
     internat: Boolean,
     address: addressSchema,
+    city: String,
     polish: {
         written: Number,
         oral: Number
